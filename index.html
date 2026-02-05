@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.K. Helpers | Professional Lawn Care & Delivery Services in Hollywood, FL</title>
+    <meta name="description" content="Reliable lawn mowing, food delivery, and dog walking services in Hollywood, FL. Affordable rates, professional equipment, and friendly service. Get your free quote today!">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1B5E20',
+                        secondary: '#2E7D32',
+                        accent: '#F57C00',
+                        cream: '#FFF8E1',
+                        dark: '#1a1a1a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(27, 94, 32, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(27, 94, 32, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(27, 94, 32, 0.3);
+        }
+        
+        .btn-accent {
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 124, 0, 0.3);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .before-after-slider {
+            position: relative;
+            overflow: hidden;
+            cursor: col-resize;
+        }
+        
+        .before-after-slider img {
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .sticky-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .testimonial-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .process-step {
+            position: relative;
+        }
+        
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #1B5E20, transparent);
+            transform: translateY(-50%);
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .process-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-primary font-serif">M.K. Helpers</span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#services" class="text-gray-600 hover:text-primary transition-colors font-medium">Services</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-primary transition-colors font-medium">How It Works</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-primary transition-colors font-medium">Gallery</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-primary transition-colors font-medium">Reviews</a>
+                    <a href="#contact" class="btn-primary text-white px-6 py-3 rounded-full font-semibold">Get Free Quote</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <i data-lucide="menu" class="w-6 h-6 text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#services" class="block text-gray-600 hover:text-primary py-2">Services</a>
+                <a href="#how-it-works" class="block text-gray-600 hover:text-primary py-2">How It Works</a>
+                <a href="#gallery" class="block text-gray-600 hover:text-primary py-2">Gallery</a>
+                <a href="#testimonials" class="block text-gray-600 hover:text-primary py-2">Reviews</a>
+                <a href="#contact" class="block btn-primary text-white px-6 py-3 rounded-full text-center font-semibold mt-4">Get Free Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden hero-pattern">
+        <div class="absolute inset-0 bg-gradient-to-br from-cream via-white to-green-50 opacity-60"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-fade-in">
+                    <div class="inline-flex items-center gap-2 bg-green-100 text-primary px-4 py-2 rounded-full text-sm font-semibold">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        Trusted by 100+ Hollywood Residents
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                        Your Local <span class="gradient-text font-serif italic">Helper</span><br>
+                        in Hollywood, FL
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+                        Professional lawn care, food delivery, and dog walking services. We handle the tasks you don't have time for, so you can focus on what matters most.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contact" class="btn-accent text-white px-8 py-4 rounded-full font-bold text-lg inline-flex items-center justify-center gap-2">
+                            Get Free Quote
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="tel:+19545551234" class="border-2 border-primary text-primary px-8 py-4 rounded-full font-bold text-lg inline-flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-all">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                            Call Now
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center gap-6 text-sm text-gray-500">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-primary"></i>
+                            Same-Day Service
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-primary"></i>
+                            Licensed & Insured
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-primary"></i>
+                            Affordable Rates
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl transform rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop" 
+                         alt="Beautiful lawn in Hollywood Florida" 
+                         class="relative rounded-3xl shadow-2xl w-full object-cover h-[500px] floating">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Starting at</p>
+                            <p class="text-2xl font-bold text-primary">$25</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Our <span class="gradient-text">Services</span></h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything you need to make life easier, delivered with care and professionalism.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Lawn Care -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-gray-100 shadow-lg">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="scissors" class="w-8 h-8 text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Lawn Mowing</h3>
+                    <p class="text-gray-600 mb-6">Professional grass cutting with clean edges and debris removal. We bring all equipment.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Weekly or bi-weekly service</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Edge trimming included</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Blow off walkways</li>
+                    </ul>
+                    <p class="text-3xl font-bold text-primary mb-4">From $25</p>
+                    <button onclick="selectService('lawn')" class="w-full btn-primary text-white py-3 rounded-xl font-semibold">Book Now</button>
+                </div>
+                
+                <!-- Food Delivery -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-gray-100 shadow-lg">
+                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="truck" class="w-8 h-8 text-accent"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Food Delivery</h3>
+                    <p class="text-gray-600 mb-6">Fast, reliable delivery of meals and groceries right to your door in Hollywood area.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i> Local restaurant pickup</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i> Grocery shopping</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i> Hot & fresh guarantee</li>
+                    </ul>
+                    <p class="text-3xl font-bold text-accent mb-4">From $10</p>
+                    <button onclick="selectService('delivery')" class="w-full btn-accent text-white py-3 rounded-xl font-semibold">Order Now</button>
+                </div>
+                
+                <!-- Dog Walking -->
+                <div class="service-card bg-white rounded-3xl p-8 border border-gray-100 shadow-lg">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="dog" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Dog Walking</h3>
+                    <p class="text-gray-600 mb-6">Loving care for your furry friends. Exercise, attention, and photo updates included.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i> 30 or 60 minute walks</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i> Photo updates sent</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i> Waste bags provided</li>
+                    </ul>
+                    <p class="text-3xl font-bold text-blue-600 mb-4">From $15</p>
+                    <button onclick="selectService('dog')" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors">Schedule Walk</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Gallery -->
+    <section id="gallery" class="py-20 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">See the <span class="gradient-text">Difference</span></h2>
+                <p class="text-xl text-gray-600">Real results from real Hollywood properties</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-4 rounded-3xl shadow-xl">
+                    <div class="relative h-80 rounded-2xl overflow-hidden before-after-slider" id="slider1">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" 
+                             alt="Before lawn care" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white font-bold text-lg">Before</div>
+                    </div>
+                    <p class="mt-4 text-center font-semibold text-gray-700">Emerald Hills Property - Lawn Restoration</p>
+                </div>
+                
+                <div class="bg-white p-4 rounded-3xl shadow-xl">
+                    <div class="relative h-80 rounded-2xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&h=400&fit=crop" 
+                             alt="After lawn care" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white font-bold text-lg">After</div>
+                    </div>
+                    <p class="mt-4 text-center font-semibold text-gray-700">Hollywood Lakes - Weekly Maintenance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Simple <span class="gradient-text">3-Step</span> Process</h2>
+                <p class="text-xl text-gray-600">Getting help has never been easier</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">1</div>
+                    <h3 class="text-xl font-bold mb-3">Request a Quote</h3>
+                    <p class="text-gray-600">Call, text, or fill out our form. We'll respond within 1 hour with a fair, transparent price.</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">2</div>
+                    <h3 class="text-xl font-bold mb-3">Schedule Service</h3>
+                    <p class="text-gray-600">Pick a time that works for you. We offer same-day and next-day appointments.</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">3</div>
+                    <h3 class="text-xl font-bold mb-3">Enjoy Results</h3>
+                    <p class="text-gray-600">Sit back and relax while we handle the work. Pay only when
